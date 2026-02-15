@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
 import type { APODData } from "@/lib/nasa-apod";
 import { GlassCard } from "@/components/cosmic/GlassCard";
 import { CosmicButton } from "@/components/cosmic/CosmicButton";
@@ -24,9 +25,18 @@ interface DetailViewProps {
 }
 
 export function DetailView({ apod, shareUrl }: DetailViewProps) {
+  const router = useRouter();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+  const handleBack = () => {
+    if (typeof window !== "undefined" && window.history.length > 1) {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-deep-space flex flex-col">
@@ -44,12 +54,13 @@ export function DetailView({ apod, shareUrl }: DetailViewProps) {
         animate={{ y: 0, opacity: 1 }}
       >
         <div className="flex justify-between items-center">
-          <Link
-            href="/archive"
+          <button
+            onClick={handleBack}
             className="p-2 rounded-lg hover:bg-[rgba(74,128,240,0.2)] transition-colors"
+            aria-label="Go back"
           >
             <ArrowLeft className="w-5 h-5" />
-          </Link>
+          </button>
           <button
             className="p-2 rounded-lg hover:bg-[rgba(74,128,240,0.2)] transition-colors"
             onClick={() => setIsMobileMenuOpen(true)}
@@ -108,14 +119,13 @@ export function DetailView({ apod, shareUrl }: DetailViewProps) {
         >
           <div className="p-6 md:p-8 lg:p-12 min-h-full flex flex-col">
             <div className="hidden lg:flex justify-between items-center mb-8">
-              <Link href="/archive">
-                <CosmicButton
-                  variant="ghost"
-                  icon={<ArrowLeft className="w-5 h-5" />}
-                >
-                  Back
-                </CosmicButton>
-              </Link>
+              <CosmicButton
+                variant="ghost"
+                icon={<ArrowLeft className="w-5 h-5" />}
+                onClick={handleBack}
+              >
+                Back
+              </CosmicButton>
               <div className="flex gap-2">
                 <motion.button
                   className="p-3 rounded-lg bg-[rgba(42,46,55,0.8)] border border-[rgba(74,128,240,0.3)] hover:border-[rgba(74,128,240,0.6)] transition-all"

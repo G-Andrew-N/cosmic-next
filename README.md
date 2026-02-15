@@ -92,6 +92,58 @@ src/
 - **Share** — Copy links or share to social from the detail view
 - **Download** — Open full-size image in a new tab for saving
 
+## Deploying to Vercel
+
+[Vercel](https://vercel.com) is the recommended way to deploy this Next.js app. It auto-detects the framework and handles builds.
+
+### 1. Push to GitHub
+
+Make sure your project is in a Git repository and pushed to GitHub, GitLab, or Bitbucket:
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/yourusername/cosmic-timeline-next.git
+git push -u origin main
+```
+
+### 2. Import the Project
+
+1. Go to [vercel.com](https://vercel.com) and sign in (GitHub, GitLab, or Bitbucket)
+2. Click **Add New** → **Project**
+3. Import your repository
+4. Vercel will detect Next.js automatically — no extra configuration needed
+
+### 3. Set Environment Variables
+
+Add your NASA API key so the app can fetch images:
+
+1. In the import flow, expand **Environment Variables**
+2. Add a variable:
+   - **Name:** `NEXT_PUBLIC_NASA_API_KEY`
+   - **Value:** your NASA API key from [api.nasa.gov](https://api.nasa.gov/)
+   - **Environment:** Production, Preview, Development (or just Production)
+
+3. Optional — for correct share links in the Detail view:
+   - **Name:** `NEXT_PUBLIC_SITE_URL`
+   - **Value:** `https://your-project.vercel.app` (or your custom domain)
+
+### 4. Deploy
+
+Click **Deploy**. Vercel will build and deploy your app. You'll get a URL like `https://cosmic-timeline-next-xxx.vercel.app`.
+
+### 5. Custom Domain (Optional)
+
+1. Open your project in the Vercel dashboard
+2. Go to **Settings** → **Domains**
+3. Add your domain and follow the DNS instructions
+
+---
+
+**Build settings (default):** Vercel uses `npm run build` and `npm run start` by default. No `vercel.json` is required unless you need custom rewrites or headers.
+
 ## License
 
 MIT
